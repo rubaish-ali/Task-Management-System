@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager Assignment</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Quicksand:wght@300..700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Josefin Sans', Arial, sans-serif;
+            background: #fff;
+            color: #222;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 32px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .navbar .logo {
+            font-size: 20px;
+            /* background: #b3b3e6; */
+            color: #4b2fa6;
+            /* color: #fff; */
+            padding: 6px 18px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Josefin Sans';
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: #222;
+            font-size: 16px;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+
+        .navbar .nav-links .login-btn {
+            background: #8254ff;
+            color: #fff;
+            border: none;
+            padding: 7px 22px;
+            border-radius: 4px;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+            border-radius: 10px;
+        }
+
+        .navbar .nav-links .login-btn:hover {
+            color: #fff;
+        }
+
+        .main-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 60px 0 60px;
+            min-height: 80vh;
+        }
+
+        .left-section {
+            max-width: 420px;
+        }
+
+        .left-section h1 {
+            font-size: 2.6rem;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .left-section h2 {
+            font-size: 30px;
+            font-weight: 500;
+            margin: 0 0 18px 0;
+            color: black;
+        }
+
+        .left-section p {
+            font-size: 1.08rem;
+            color: #444;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .left-section .start-btn {
+            background: #956eff;
+            color: #fff;
+            border: none;
+            padding: 13px 32px;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 18px;
+        }
+
+        .left-section .start-btn:hover {
+            background: #4b2fa6;
+        }
+
+        .right-section img {
+            width: 550px;
+            max-width: 100%;
+            display: block;
+        }
+
+       
+
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40px 20px;
+            }
+
+            .right-section {
+                margin-top: 30px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">Task Management System</a>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Task</a>
+            <button class="login-btn"><a href="./LOGIN/index.html">Login</a></button>
+        </div>
+    </nav>
+    <div class="main-content">
+        <div class="left-section">
+            <h2 class="The-left-section">The</h2>
+            <h1>Task Manager</h1>
+            <h2>Assignment</h2>
+            <p>
+                This is a simple task manager project for assignment. Please complete the following features as listed.
+            </p>
+            <a href="#" class="start-btn">Show All Project</a>
+        </div>
+        <div class="right-section">
+            <img src="./image.png" alt="ToDo Illustration">
+        </div>
+    </div>
+</body>
+
+</html>

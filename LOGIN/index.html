@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Quicksand:wght@300..700&display=swap');
+        body {
+            margin: 0;
+            font-family: 'Josefin Sans', sans-serif;
+            background: #fff;
+            color: #222;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 20px 16px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .navbar .logo {
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 20px;
+            color: #7c4dcb;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: #7c4dcb;
+            font-size: 15px;
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #4b2e83;
+        }
+
+        .navbar .login-btn {
+            background: #9d66fc;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 24px;
+            font-size: 15px;
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: 16px;
+            transition: background 0.2s;
+        }
+
+        
+
+        .main-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+       .main-section h1 span {
+            color: red;
+        }
+      .main-section h1 {
+            font-size: 30px;
+            
+        }
+
+        input {
+            width: 300px;
+            height: 40px;
+            padding-left: 5px;
+            border: 1px solid rgb(198, 198, 206);
+            background-color: rgb(198, 198, 206);
+            border-radius: 10px;
+            outline: none;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        strong button {
+            width: 100px;
+            height: 40px;
+            border: none;
+            outline: none;
+            background-color:   #9d66fc;
+            color: white;
+            border-radius: 10px;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Task Mangment System</div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../task/task2/index.html">Tasks</a>
+            <a href="../LOGIN/index.html" class="login-btn">Login</a>
+        </div>
+    </nav>
+    <div class="main-section">
+        <h1>Login to your Account <span>*</span></h1>
+        <br>
+        <div class="input">
+            <input type="email" placeholder="Enter Your Email" id="email">
+            <br>
+            <br>
+            <input type="password" placeholder="Enter Your Password" id="password">
+            <p>Don't Have an Account? <a href="../register/index.html">Register</a>
+            <p>
+                <strong><button onclick="login()">Login</button></strong>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>

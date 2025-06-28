@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Task Management System</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Quicksand:wght@300..700&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Josefin Sans', sans-serif;
+      background: #faf9fb;
+      color: #333;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 220px;
+      background: #fff;
+      border-right: 1px solid #eee;
+      padding: 32px 0 0 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #7c3aed;
+      margin-left: 32px;
+      margin-bottom: 40px;
+    }
+
+    .sidebar nav {
+      flex: 1;
+    }
+
+    .sidebar nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 30px 0;
+    }
+
+    .sidebar nav ul li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar nav ul li a {
+      text-decoration: none;
+      color: #333;
+      padding: 10px 32px;
+      display: block;
+      border-radius: 6px;
+      transition: background 0.2s;
+      font-weight: 500;
+    }
+
+    .sidebar nav ul li a.active,
+    .sidebar nav ul li a:hover {
+      background: #f3f0ff;
+      color: #7c3aed;
+    }
+
+    .sidebar .logout {
+      margin: 32px;
+      background: #f3f0ff;
+      color: #7c3aed;
+      border: none;
+      padding: 10px 0;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      width: calc(100% - 0px);
+    }
+
+
+    .main-content {
+      /* margin-left: 240px;
+      padding: 30px 40px; */
+      margin-left: 220px;
+      padding: 0;
+      min-height: 100vh;
+      background: #faf9fb;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 40px 0 40px;
+      background: #faf9fb;
+    }
+
+    .header .nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    .header .nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 16px;
+      transition: color 0.2s;
+    }
+
+    .header .nav a:hover {
+      color: #7c3aed;
+    }
+
+    .header .profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header .profile img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #eee;
+    }
+
+    .header .profile span {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+
+    .tasks-container {
+
+      margin-left: 30px;
+      margin-right: 30px;
+      margin-top: 80px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.04);
+      padding: 24px 32px;
+      margin-bottom: 0;
+    }
+
+    .tasks-container h2 {
+      margin: 0 0 20px 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #7c3aed;
+      letter-spacing: 1px;
+    }
+
+    .tasks-container h3 {
+      margin: 0 0 20px 0;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #333;
+      letter-spacing: 1px;
+    }
+
+    .tasks-container h3 .req {
+      color: #d32f2f;
+      font-size: 1.1rem;
+    }
+
+    .tasks-table {
+      width: 100%;
+      font-size: 1rem;
+       
+    }
+
+    .tasks-table th,
+    .tasks-table td {
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    .tasks-table th {
+      background: #F3F0FF;
+      color: #7C3AED;
+      font-weight: 700;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .tasks-table tr {
+      background: #fff;
+      transition: background 0.2s;
+    }
+
+    .tasks-table tr:nth-child(even) {
+      background: #f7f6fa;
+    }
+
+    .tasks-table tr:hover {
+      background: #e1d7fa;
+    }
+
+    .tasks-table td .action-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      margin-right: 6px;
+      font-size: 1.1rem;
+      padding: 4px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .tasks-table td .action-btn.edit {
+      color: #4caf50;
+    }
+
+    .tasks-table td .action-btn.delete {
+      color: #d32f2f;
+    }
+
+    .tasks-table td .action-btn.edit:hover {
+      background: #e8f5e9;
+    }
+
+    .tasks-table td .action-btn.delete:hover {
+      background: #ffebee;
+    }
+
+    /* Modal */
+    .modal-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #0006;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      display: none;
+    }
+
+    .modal-bg.active {
+      display: flex;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px 32px 24px 32px;
+      min-width: 400px;
+      box-shadow: 0 4px 24px #0002;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 18px;
+    }
+
+    .modal h4 {
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .modal h4 .req {
+      color: #d32f2f;
+    }
+
+    .modal input,
+    .modal textarea {
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      margin-bottom: 8px;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .modal input:focus,
+    .modal textarea:focus {
+      border-color: #7c4dff;
+    }
+
+    .modal button {
+      background: #7c4dff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 0;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .modal button:hover {
+      background: #5e35b1;
+    }
+
+    @media (max-width: 900px) {
+      .main-content {
+        padding: 20px 5px;
+      }
+
+      .tasks-container {
+        padding: 20px 5px;
+      }
+
+      .modal {
+        min-width: 90vw;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .sidebar {
+        width: 100px;
+      }
+
+      .main-content {
+        margin-left: 110px;
+      }
+
+      .tasks-container {
+        padding: 10px 2px;
+      }
+
+      .modal {
+        min-width: 98vw;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div>
+      <div class="logo">Task Management System</div>
+      <nav>
+        <ul>
+          <li><a href="../../Dashboard/index.html"><span>📋</span>&nbsp; Dashboard</a></li>
+          <li class="active"><a href="../task/task2/index.html"><span>✔️</span>&nbsp; Tasks</a></li>
+          <li><a href="../task1/index.html"><span>🙍‍♂️</span>&nbsp; My Profile</a></li>
+        </ul>
+      </nav>
+    </div>
+    \
+  </div>
+  <div class="main-content">
+    <div class="header">
+      <div class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../task/task2/index.html">Tasks</a>
+      </div>
+      <div class="profile">
+        <img id="proimg" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile">
+        <span id="pronam">Krishna Ashyan</span>
+      </div>
+    </div>
+    <div class="tasks-container">
+   <h2>All Tasks<span class="required">*</span></h2>
+            <table class="tasks-table" id="tasksTable">
+        <thead>
+          <tr>
+            <th>S.no</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tasksBody">
+          <!-- <tr>
+            <td>1</td>
+            <td>Home work karna he</td>
+            <td>maths ka assignment or algebra karna he</td>
+            <td>
+              <button class="action-btn edit" onclick="openModal()">✏️</button>
+              <button class="action-btn delete">🗑️</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Home work karna he</td>
+            <td>maths ka assignment or algebra karna he</td>
+            <td>
+              <button class="action-btn edit" onclick="openModal()">✏️</button>
+              <button class="action-btn delete">🗑️</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Home work karna he</td>
+            <td>maths ka assignment or algebra karna he</td>
+            <td>
+              <button class="action-btn edit" onclick="openModal()">✏️</button>
+              <button class="action-btn delete">🗑️</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Home work karna he</td>
+            <td>maths ka assignment or algebra karna he</td>
+            <td>
+              <button class="action-btn edit" onclick="openModal()">✏️</button>
+              <button class="action-btn delete">🗑️</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Home work karna he</td>
+            <td>maths ka assignment or algebra karna he</td>
+            <td>
+              <button class="action-btn edit" onclick="openModal()">✏️</button>
+              <button class="action-btn delete">🗑️</button>
+            </td>a
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="i"></div>
+  <!-- Modal -->
+    <!-- <div class="modal-bg" id="modalBg">
+      <div class="modal">
+        <h4>Update The Todo<span class="req">*</span></h4>
+        <input type="text" placeholder="Title" value="Home work karna he">
+        <textarea rows="2" placeholder="Description">maths ka assignment or algebra karna he</textarea>
+        <button>Update</button>
+      </div>
+    </div> -->
+    <div class="modal-bg" id="editModal">
+  <div class="modal">
+    <h4>Update The Todo<span class="req">*</span></h4>
+    <input type="text" id="naming" placeholder="Title">
+    <textarea rows="2" id="descriptioning" placeholder="Description"></textarea>
+    <button onclick="editTask()">Update</button>
+  </div>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+  <script>
+
+    // function openModal() {
+    //   document.getElementById('modalBg').classList.add('active');
+    // }
+    // document.getElementById('modalBg').addEventListener('click', function (e) {
+    //   if (e.target === this) this.classList.remove('active');
+    // });
+
+    document.getElementById("pronam").innerHTML = localStorage.getItem("name");
+    document.getElementById("proimg").src = localStorage.getItem("image");
+    console.log("Hel; ");
+
+//     const supabaseClient = supabase.createClient('https://udqhexwcymzbfbuopokh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkcWhleHdjeW16YmZidW9wb2toIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk3MjI5MDcsImV4cCI6MjA2NTI5ODkwN30.vObkzQs7vxxmJy3_ii6Eg1mI00rNW9GmpAM63ZU22Is');
+
+//     async function fetchData() {
+//     const { data, error } = await supabaseClient
+//         .from('todos')
+//         .select()
+//     const tbody = document.getElementById('tasksBody');
+//     tbody.innerHTML = '';
+//     data.forEach((task, idx) => {
+//         const tr = document.createElement('tr');
+//         if (task.highlight) tr.classList.add('highlight');
+//         console.log(task);
+
+//         tr.innerHTML = `
+//                     <td>${idx + 1}</td>
+//                     <td>${task.title}</td>
+//                     <td>${task.description}</td>
+//                     <td>
+//                         <div class="actions">
+//                             <button class="btn edit" title="Edit" onclick="openModal(${task.id})">&#9998;</button>
+//                             <button class="btn delete" title="Delete" onclick="deleteTask(${task.id})">&#128465;</button>
+//                         </div>
+//                     </td>
+//                 `;
+//         tbody.appendChild(tr);
+//     });
+// }
+// fetchData()
+
+// async function openModal(id) {
+//     document.getElementById("i").innerHTML = `
+//              <div id="editModal"
+//             style="display:flex;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999;background:rgba(0,0,0,0.2);justify-content:center;align-items:center;">
+
+//             <div id="edit">
+//                 <h1>Update Todo</h1>
+//                 <input id="naming" type="text" placeholder="Enter new name">
+//                 <input id="descriptioning" type="text" placeholder="Enter new description">
+//                 <button onclick="editTask(${id})">Update</button>
+//             </div>
+//         </div>`
+
+// }
+// async function editTask(id) {
+//     console.log("Function Chal Raha He  ")
+//     var a = document.getElementById("naming").value
+//     var b = document.getElementById("descriptioning").value
+//     console.log(id);
+
+//     const { error } = await supabaseClient
+//         .from('todos')
+//         .update({ todo: a, Description: b })
+//         .eq('id', id)
+//     if (!error) {
+//         console.log("Data Updated Successfully");
+//         document.getElementById("editModal").style.display = "none";
+//         fetchData();
+//     } else {
+//         console.error("Error updating data:", error);
+//         alert("Error updating task. Please try again.");
+
+//     }
+// }
+
+// async function deleteTask(id) {
+//     const response = await supabaseClient
+//         .from('todos')
+//         .delete()
+//         .eq('id', id)
+//     window.location.reload()
+//     if (!error) {
+//         alert("deleted successfully!")
+//     }
+// }
+
+const supabaseClient = supabase.createClient(
+  'https://udqhexwcymzbfbuopokh.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkcWhleHdjeW16YmZidW9wb2toIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk3MjI5MDcsImV4cCI6MjA2NTI5ODkwN30.vObkzQs7vxxmJy3_ii6Eg1mI00rNW9GmpAM63ZU22Is'
+);
+
+let currentEditId = null;
+
+async function fetchData() {
+  const { data, error } = await supabaseClient.from('todos').select();
+  const tbody = document.getElementById('tasksBody');
+  tbody.innerHTML = '';
+  if (error) {
+    console.error("Fetch error:", error);
+    return;
+  }
+  data.forEach((task, idx) => {
+    console.log(task); // Check column names here in browser
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${idx + 1}</td>
+      <td>${task.todo || 'No Title'}</td>
+      <td>${task.Description || 'No Description'}</td>
+      <td>
+        <div class="actions">
+          <button class="action-btn edit" title="Edit" onclick="openModal(${task.id}, '${task.todo}', \`${task.Description}\`)">✏️</button>
+          <button class="action-btn delete" title="Delete" onclick="deleteTask(${task.id})">🗑️</button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+fetchData();
+
+function openModal(id, title, description) {
+  currentEditId = id;
+  document.getElementById('naming').value = title;
+  document.getElementById('descriptioning').value = description;
+  document.getElementById('editModal').classList.add('active');
+}
+
+document.getElementById('editModal').addEventListener('click', function (e) {
+  if (e.target === this) {
+    this.classList.remove('active');
+  }
+});
+
+async function editTask() {
+  const a = document.getElementById('naming').value;
+  const b = document.getElementById('descriptioning').value;
+
+  const { error } = await supabaseClient
+    .from('todos')
+    .update({ todo: a, Description: b })
+    .eq('id', currentEditId);
+
+  if (!error) {
+    console.log("Data Updated Successfully");
+    document.getElementById('editModal').classList.remove('active');
+    fetchData();
+  } else {
+    console.error("Error updating data:", error);
+    alert("Error updating task. Please try again.");
+  }
+}
+
+async function deleteTask(id) {
+  const { error } = await supabaseClient
+    .from('todos')
+    .delete()
+    .eq('id', id);
+
+  if (!error) {
+    alert("Deleted successfully!");
+    fetchData();
+  } else {
+    console.error("Delete error:", error);
+  }
+}
+
+document.getElementById("pronam").innerHTML = localStorage.getItem("name") || 'User';
+document.getElementById("proimg").src = localStorage.getItem("image") || 'https://randomuser.me/api/portraits/men/32.jpg';
+
+
+
+
+
+
+
+
+
+
+  </script>
+  <script src="../../Dashboard/script.js"></script>
+</body>
+
+</html>

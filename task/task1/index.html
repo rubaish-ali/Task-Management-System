@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Management System - Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Quicksand:wght@300..700&display=swap');
+        body {
+            margin: 0;
+            font-family: 'Josefin Sans', sans-serif;
+            background: #f6f6f6;
+            color: #222;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 240px;
+            background: #fff;
+            border-right: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0 0 20px 0;
+        }
+        .sidebar .logo {
+            font-weight: 700;
+            font-size: 20px;
+            color: #6c47c7;
+            padding: 24px 32px 16px 32px;
+            letter-spacing: 1px;
+        }
+        .sidebar nav {
+            flex: 1;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar li {
+            margin-bottom: 8px;
+        }
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #222;
+            padding: 12px 32px;
+            border-radius: 8px 0 0 8px;
+            transition: background 0.2s;
+            font-weight: 500;
+        }
+        .sidebar a.active, .sidebar a:hover {
+            background: #f2edfa;
+            color: #6c47c7;
+        }
+        .sidebar .logout {
+            display: flex;
+            align-items: center;
+            padding: 12px 32px;
+            color: #888;
+            font-size: 15px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            outline: none;
+        }
+        .sidebar .logout:hover {
+            color: #6c47c7;
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+        .topbar .nav {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .topbar .nav a {
+            text-decoration: none;
+            color: #222;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+        .topbar .nav a.active, .topbar .nav a:hover {
+            color: #6c47c7;
+        }
+        .topbar .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .topbar .profile-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #eee;
+        }
+        .topbar .profile-info {
+            display: flex;
+            flex-direction: column;
+            font-size: 13px;
+        }
+        .topbar .profile-info .name {
+            font-weight: 600;
+        }
+        .topbar .profile-info .role {
+            color: #888;
+            font-size: 12px;
+        }
+        .content {
+            flex: 1;
+            padding: 40px 0 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: #f6f6f6;
+        }
+        .profile-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(80, 60, 120, 0.04);
+            padding: 32px 40px;
+            min-width: 420px;
+            max-width: 480px;
+            margin-top: 24px;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #eee;
+        }
+        .profile-header .change-photo {
+            color: #888;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .profile-header .change-photo:hover {
+            color: #6c47c7;
+            text-decoration: underline;
+        }
+        .profile-form label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 16px;
+        }
+        .profile-form label .required {
+            color: #d32f2f;
+            margin-left: 2px;
+        }
+        .profile-form input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 18px;
+            font-size: 15px;
+            background: #faf9fd;
+            transition: border 0.2s;
+        }
+        .profile-form input:focus {
+            border: 1.5px solid #6c47c7;
+            outline: none;
+            background: #fff;
+        }
+        .profile-form button {
+            background: #6c47c7;
+            color: #fff;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .profile-form button:hover {
+            background: #5436a9;
+        }
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                height: 60px;
+                padding: 0;
+            }
+            .sidebar .logo, .sidebar .logout {
+                display: none;
+            }
+            .sidebar nav {
+                flex: 1;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+            }
+            .sidebar ul {
+                display: flex;
+                flex-direction: row;
+                gap: 16px;
+            }
+            .sidebar a {
+                border-radius: 8px;
+                padding: 10px 18px;
+            }
+            .main {
+                width: 100%;
+            }
+            .content {
+                padding: 24px 0 0 0;
+            }
+            .profile-section {
+                min-width: 0;
+                width: 100%;
+                max-width: 98vw;
+                padding: 24px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div>
+                <div class="logo">Task Mangement <br> System</div>
+                <nav>
+                    <ul>
+                        <li><a href="../../Dashboard/index.html" ><span>📋</span>&nbsp; Dashboard</a></li>
+                        <li><a href="../task2/index.html"><span>✔️</span>&nbsp; Tasks</a></li>
+                        <li><a href="" class="active"><span>🙍‍♂️</span>&nbsp; My Profile</a></li>
+                    </ul>
+                </nav>
+            </div>
+        
+        </aside>
+        <main class="main">
+            <div class="topbar">
+                <div class="nav">
+                    <a href="../../index.html">Home</a>
+                    <a href="#" class="active">Tasks</a>
+                </div>
+                <div class="profile">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-img">
+                    <div class="profile-info">
+                        <span class="name">rubaish-ali</span>
+                        <span class="role">Web Developer</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <section class="profile-section">
+                    <div class="profile-header">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar" class="profile-avatar" id="avatarImg">
+                        <div>
+                            <label for="avatarInput" class="change-photo" style="cursor:pointer;">Change <br>your photo.</label>
+                            <input type="file" id="avatarInput" accept="image/*" style="display:none;">
+                        </div>
+                    </div>
+                    <form class="profile-form" id="profileForm">
+                        <label>Edit Your Profile<span class="required">*</span></label>
+                        <input type="text" id="name" placeholder="rubaish-ali" value="rubaish-ali" required>
+                        <input type="email" id="email" placeholder="mrubaish16@gmail.com" value="mrubaish16@gmail.com" required>
+                        <input type="password" id="password" placeholder="********" value="password" required>
+                        <button type="submit">Edit</button>
+                    </form>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script>
+        // // Avatar change preview
+        // const avatarInput = document.getElementById('avatarInput');
+        // const avatarImg = document.getElementById('avatarImg');
+        // document.querySelector('.change-photo').onclick = () => avatarInput.click();
+        // avatarInput.onchange = function() {
+        //     if (this.files && this.files[0]) {
+        //         const reader = new FileReader();
+        //         reader.onload = e => avatarImg.src = e.target.result;
+        //         reader.readAsDataURL(this.files[0]);
+        //     }
+        // };
+
+        // // Profile form submit
+        // document.getElementById('profileForm').onsubmit = function(e) {
+        //     e.preventDefault();
+        //     alert('Profile updated!');
+        // };
+        // let name = document.getElementById("name");
+        // let image = document.getElementById("image");
+
+        // name.innerHTML = localStorage.getItem("name")
+        // image.src = localStorage.getItem("image")
+        document.getElementById('profileForm').onsubmit = function(e) {
+    e.preventDefault();
+
+    // Get updated values
+    const updatedName = document.getElementById('name').value;
+    const updatedEmail = document.getElementById('email').value;
+    const updatedPassword = document.getElementById('password').value;
+    const updatedImage = document.getElementById('avatarImg').src;
+
+    // Save to localStorage
+    localStorage.setItem('name', updatedName);
+    localStorage.setItem('email', updatedEmail);
+    localStorage.setItem('password', updatedPassword);
+    localStorage.setItem('image', updatedImage);
+
+    // Redirect to dashboard
+    alert('Profile updated successfully!');
+    window.location.href = '../../Dashboard/index.html';
+};
+let name = document.getElementById("name");
+let image = document.getElementById("image");
+window.onload = function () {
+    const storedName = localStorage.getItem("name");
+    const storedEmail = localStorage.getItem("email");
+    const storedImage = localStorage.getItem("image");
+
+    if (storedName) document.getElementById("name").value = storedName;
+    if (storedEmail) document.getElementById("email").value = storedEmail;
+    if (storedImage) {
+        document.getElementById("avatarImg").src = storedImage;
+        document.querySelector(".profile-img").src = storedImage; // Topbar image
+    }
+};
+
+    </script>
+</body>
+</html>

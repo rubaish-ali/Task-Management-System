@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task Management System - Dashboard</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Quicksand:wght@300..700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Josefin Sans', sans-serif;
+            background: #faf9fb;
+            color: #333;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 220px;
+            background: #fff;
+            border-right: 1px solid #eee;
+            padding: 32px 0 0 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #7c3aed;
+            margin-left: 32px;
+            margin-bottom: 40px;
+        }
+
+        .sidebar nav {
+            flex: 1;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px 0;
+        }
+
+        .sidebar nav ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar nav ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px 32px;
+            display: block;
+            border-radius: 6px;
+            transition: background 0.2s;
+            font-weight: 500;
+        }
+
+        .sidebar nav ul li a.active,
+        .sidebar nav ul li a:hover {
+            background: #f3f0ff;
+            color: #7c3aed;
+        }
+
+        .sidebar .logout {
+            margin: 32px;
+            background: #f3f0ff;
+            color: #7c3aed;
+            border: none;
+            padding: 10px 0;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            width: calc(100% - 0px);
+        }
+
+        .main-content {
+            margin-left: 220px;
+            padding: 0;
+            min-height: 100vh;
+            background: #faf9fb;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 40px 40px 40px;
+            background: #faf9fb;
+        }
+
+        .header .nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        .header .nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.2s;
+        }
+
+        .header .nav a:hover {
+            color: #7c3aed;
+        }
+
+        .header .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header .profile img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #eee;
+        }
+
+        .header .profile span {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            padding: 32px 40px;
+        }
+
+        .tasks-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(124, 58, 237, 0.04);
+            padding: 24px 32px;
+            margin-bottom: 0;
+        }
+
+        .tasks-section h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #7c3aed;
+            margin: 0 0 18px 0;
+        }
+
+        .tasks-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0;
+        }
+
+        .tasks-table th,
+        .tasks-table td {
+            padding: 12px 10px;
+            text-align: left;
+        }
+
+        .tasks-table th {
+            background: #f3f0ff;
+            color: #7c3aed;
+            font-weight: 700;
+            font-size: 15px;
+            border-bottom: 2px solid #e5e7eb;
+            position: sticky;
+        }
+
+        .tasks-table tr {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .tasks-table td {
+            font-size: 15px;
+            color: #444;
+        }
+
+        .tasks-table td:last-child {
+            text-align: center;
+        }
+
+        .tasks-table .action-btn {
+            background: none;
+            border: none;
+            color: #7c3aed;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.2s;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tasks-table .action-btn:hover {
+            background: #f3f0ff;
+        }
+
+        .dashboard-bottom {
+            display: flex;
+            gap: 32px;
+            margin-top: 24px;
+        }
+
+        .new-task,
+        .task-progress {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(124, 58, 237, 0.04);
+            padding: 24px 32px;
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .new-task h3 {
+            color: #7c3aed;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .new-task label {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            display: block;
+            color: #333;
+        }
+
+        .new-task input,
+        .new-task textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 15px;
+            margin-bottom: 14px;
+            background: #faf9fb;
+            resize: none;
+            font-family: inherit;
+        }
+
+        .new-task button {
+            background: #7c3aed;
+            color: #fff;
+            border: none;
+            padding: 10px 32px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .new-task button:hover {
+            background: #5b21b6;
+        }
+
+        .task-progress {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 180px;
+        }
+
+        .progress-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(#7c3aed 0% 50%, #f3f0ff 50% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .progress-circle span {
+            position: absolute;
+            font-size: 28px;
+            font-weight: 700;
+            color: #7c3aed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .task-progress .label {
+            font-size: 16px;
+            color: #444;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        /* CSS */
+        .logout-btn {
+            background-color: #ffffff;
+            color: #7c3aed;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            padding: 10px;
+            margin-left: 22px;
+        }
+        .logout-btn:hover {
+            background-color: #ece9f8;
+            color: black;
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-bottom {
+                flex-direction: column;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                flex-direction: row;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div>
+            <div class="logo">Task Management System</div>
+            <nav>
+                <ul>
+                    <li><a href="../../Dashboard/index.html"><span>📋</span>&nbsp; Dashboard</a></li>
+                    <li class="active"><a href="../task/task2/index.html"><span>✔️</span>&nbsp; Tasks</a></li>
+                    <li><a href="../task/task1/"><span>🙍‍♂️</span>&nbsp; My Profile</a></li>
+                   
+      
+                    <br>
+                    <strong id="logoutBtn" class="logout-btn"><span>⇦</span>&nbsp; Logout</strong>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div class="nav">
+                <a href="../index.html">Home</a>
+                <a href="../task/task2/index.html">Tasks</a>
+            </div>
+            <div class="profile">
+                <img id="proimg" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile">
+                <span id="pronam">Krishna Ashyan</span>
+            </div>
+        </div>
+        <div class="dashboard-container">
+            <div class="tasks-section">
+                <h2>Uncompleted Tasks*</h2>
+                <table class="tasks-table">
+                    <thead>
+                        <tr>
+                            <th>Sno</th>
+                            <th>Task Title</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="dashboard-bottom">
+                <div class="new-task">
+                    <h3>New Task*</h3>
+                    <!-- <div>
+                        <label for="task-title">enter your Task</label>
+                        <input type="text" id="task-title" placeholder="Task Title" required>
+                        <label for="task-desc">enter your Description</label>
+                        <textarea id="task-desc" rows="2" placeholder="Description" required></textarea>
+                        <button type="submit">Add +</button>
+                    </div> -->
+                    <div>
+<input type="text" id="todo" placeholder="Enter task title">
+<textarea id="todox" placeholder="Enter task description"></textarea>
+
+
+
+                        <button onclick="addtodo()">Add Todo</button>
+
+                    </div>
+                    <div id="todocontainer">
+
+                    </div>
+                </div>
+                <div class="task-progress">
+                    <div class="progress-circle" style="background: rgba(34,197,94,0.12);">
+                        <span style="color: #222; font-size: 2em; font-weight: bold;">80%</span>
+                    </div>
+                    <div class="label" style="color: #222; font-family: 'Quicksand', sans-serif; font-size: 1.1em; text-align: center; margin-top: 10px;">
+                        Tasks Complete
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HTML -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
