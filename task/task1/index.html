@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Task Management System - Profile</title>
@@ -7,16 +8,19 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Quicksand:wght@300..700&display=swap');
+
         body {
             margin: 0;
             font-family: 'Josefin Sans', sans-serif;
             background: #f6f6f6;
             color: #222;
         }
+
         .container {
             display: flex;
             min-height: 100vh;
         }
+
         .sidebar {
             width: 240px;
             background: #fff;
@@ -26,24 +30,32 @@
             justify-content: space-between;
             padding: 0 0 20px 0;
         }
+
         .sidebar .logo {
-            font-weight: 700;
             font-size: 20px;
-            color: #6c47c7;
-            padding: 24px 32px 16px 32px;
-            letter-spacing: 1px;
+            font-weight: 700;
+            color: #7c3aed;
+            margin-left: 32px;
+            margin-bottom: 40px;
+            padding-top: 33px;
+            line-height: 20px;
         }
+
         .sidebar nav {
             flex: 1;
+            
         }
+
         .sidebar ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
+
         .sidebar li {
             margin-bottom: 8px;
         }
+
         .sidebar a {
             display: flex;
             align-items: center;
@@ -54,10 +66,13 @@
             transition: background 0.2s;
             font-weight: 500;
         }
-        .sidebar a.active, .sidebar a:hover {
+
+        .sidebar a.active,
+        .sidebar a:hover {
             background: #f2edfa;
             color: #6c47c7;
         }
+
         .sidebar .logout {
             display: flex;
             align-items: center;
@@ -69,26 +84,31 @@
             background: none;
             outline: none;
         }
+
         .sidebar .logout:hover {
             color: #6c47c7;
         }
+
         .main {
             flex: 1;
             display: flex;
             flex-direction: column;
             min-width: 0;
         }
+
         .topbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 32px;
         }
+
         .topbar .nav {
             display: flex;
             gap: 24px;
             align-items: center;
         }
+
         .topbar .nav a {
             text-decoration: none;
             color: #222;
@@ -96,14 +116,18 @@
             font-size: 15px;
             transition: color 0.2s;
         }
-        .topbar .nav a.active, .topbar .nav a:hover {
+
+        .topbar .nav a.active,
+        .topbar .nav a:hover {
             color: #6c47c7;
         }
+
         .topbar .profile {
             display: flex;
             align-items: center;
             gap: 12px;
         }
+
         .topbar .profile-img {
             width: 36px;
             height: 36px;
@@ -111,18 +135,22 @@
             object-fit: cover;
             border: 2px solid #eee;
         }
+
         .topbar .profile-info {
             display: flex;
             flex-direction: column;
             font-size: 13px;
         }
+
         .topbar .profile-info .name {
             font-weight: 600;
         }
+
         .topbar .profile-info .role {
             color: #888;
             font-size: 12px;
         }
+
         .content {
             flex: 1;
             padding: 40px 0 0 0;
@@ -131,6 +159,7 @@
             align-items: flex-start;
             background: #f6f6f6;
         }
+
         .profile-section {
             background: #fff;
             border-radius: 12px;
@@ -140,12 +169,14 @@
             max-width: 480px;
             margin-top: 24px;
         }
+
         .profile-header {
             display: flex;
             align-items: center;
             gap: 24px;
             margin-bottom: 32px;
         }
+
         .profile-avatar {
             width: 80px;
             height: 80px;
@@ -153,26 +184,31 @@
             object-fit: cover;
             border: 3px solid #eee;
         }
+
         .profile-header .change-photo {
             color: #888;
             font-size: 14px;
             cursor: pointer;
             margin-top: 8px;
         }
+
         .profile-header .change-photo:hover {
             color: #6c47c7;
             text-decoration: underline;
         }
+
         .profile-form label {
             font-weight: 600;
             margin-bottom: 8px;
             display: block;
             font-size: 16px;
         }
+
         .profile-form label .required {
             color: #d32f2f;
             margin-left: 2px;
         }
+
         .profile-form input {
             width: 100%;
             padding: 10px 12px;
@@ -183,11 +219,13 @@
             background: #faf9fd;
             transition: border 0.2s;
         }
+
         .profile-form input:focus {
             border: 1.5px solid #6c47c7;
             outline: none;
             background: #fff;
         }
+
         .profile-form button {
             background: #6c47c7;
             color: #fff;
@@ -199,11 +237,12 @@
             cursor: pointer;
             transition: background 0.2s;
         }
+
         .profile-form button:hover {
             background: #5436a9;
         }
-        
-      .logout-btn {
+
+        .logout-btn {
             background-color: #ffffff;
             color: #7c3aed;
             border: none;
@@ -215,14 +254,17 @@
             padding: 10px;
             margin-left: 22px;
         }
+
         .logout-btn:hover {
             background-color: #ece9f8;
             color: black;
         }
+
         @media (max-width: 900px) {
             .container {
                 flex-direction: column;
             }
+
             .sidebar {
                 width: 100%;
                 flex-direction: row;
@@ -231,9 +273,12 @@
                 height: 60px;
                 padding: 0;
             }
-            .sidebar .logo, .sidebar .logout {
+
+            .sidebar .logo,
+            .sidebar .logout {
                 display: none;
             }
+
             .sidebar nav {
                 flex: 1;
                 display: flex;
@@ -241,21 +286,26 @@
                 align-items: center;
                 justify-content: center;
             }
+
             .sidebar ul {
                 display: flex;
                 flex-direction: row;
                 gap: 16px;
             }
+
             .sidebar a {
                 border-radius: 8px;
                 padding: 10px 18px;
             }
+
             .main {
                 width: 100%;
             }
+
             .content {
                 padding: 24px 0 0 0;
             }
+
             .profile-section {
                 min-width: 0;
                 width: 100%;
@@ -265,22 +315,23 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <aside class="sidebar">
             <div>
-                <div class="logo">Task Mangement <br> System</div>
+                <div class="logo">Task Management System</div>
                 <nav>
                     <ul>
-                        <li><a href="../../Dashboard/index.html" ><span>📋</span>&nbsp; Dashboard</a></li>
+                        <li><a href="../../Dashboard/index.html"><span>📋</span>&nbsp; Dashboard</a></li>
                         <li><a href="../task2/index.html"><span>✔️</span>&nbsp; Tasks</a></li>
-                        <li><a href="" class="active"><span>🙍‍♂️</span>&nbsp; My Profile</a></li>
+                        <li class="active"  ><a href="" ><span>🙍‍♂️</span>&nbsp; My Profile</a></li>
                         <br>
                         <strong id="logoutBtn" class="logout-btn"><span>⇦</span>&nbsp; Logout</strong>
                     </ul>
                 </nav>
             </div>
-        
+
         </aside>
         <main class="main">
             <div class="topbar">
@@ -298,17 +349,14 @@
             </div>
             <div class="content">
                 <section class="profile-section">
-                    <div class="profile-header">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar" class="profile-avatar" id="avatarImg">
-                        <div>
-                            <label for="avatarInput" class="change-photo" style="cursor:pointer;">Change <br>your photo.</label>
-                            <input type="file" id="avatarInput" accept="image/*" style="display:none;">
-                        </div>
-                    </div>
+
                     <form class="profile-form" id="profileForm">
+
                         <label>Edit Your Profile<span class="required">*</span></label>
+                        <input type="text" id="avatarImg" placeholder="https://example.com/avatar.jpg">
                         <input type="text" id="name" placeholder="rubaish-ali" value="rubaish-ali" required>
-                        <input type="email" id="email" placeholder="mrubaish16@gmail.com" value="mrubaish16@gmail.com" required>
+                        <input type="email" id="email" placeholder="mrubaish16@gmail.com" value="mrubaish16@gmail.com"
+                            required>
                         <input type="password" id="password" placeholder="********" value="password" required>
                         <button type="submit">Edit</button>
                     </form>
@@ -339,51 +387,52 @@
 
         // name.innerHTML = localStorage.getItem("name")
         // image.src = localStorage.getItem("image")
-        document.getElementById('profileForm').onsubmit = function(e) {
-    e.preventDefault();
+        document.getElementById('profileForm').onsubmit = function (e) {
+            e.preventDefault();
 
-    // Get updated values
-    const updatedName = document.getElementById('name').value;
-    const updatedEmail = document.getElementById('email').value;
-    const updatedPassword = document.getElementById('password').value;
-    const updatedImage = document.getElementById('avatarImg').src;
+            // Get updated values
+            const updatedName = document.getElementById('name').value;
+            const updatedEmail = document.getElementById('email').value;
+            const updatedPassword = document.getElementById('password').value;
+            const updatedImage = document.getElementById('avatarImg').value;
 
-    // Save to localStorage
-    localStorage.setItem('name', updatedName);
-    localStorage.setItem('email', updatedEmail);
-    localStorage.setItem('password', updatedPassword);
-    localStorage.setItem('image', updatedImage);
+            // Save to localStorage
+            localStorage.setItem('name', updatedName);
+            localStorage.setItem('email', updatedEmail);
+            localStorage.setItem('password', updatedPassword);
+            localStorage.setItem('image', updatedImage);
 
-    // Redirect to dashboard
-    alert('Profile updated successfully!');
-    window.location.href = '../../Dashboard/index.html';
-};
-let name = document.getElementById("name");
-let image = document.getElementById("image");
-window.onload = function () {
-    const storedName = localStorage.getItem("name");
-    const storedEmail = localStorage.getItem("email");
-    const storedImage = localStorage.getItem("image");
+            // Redirect to dashboard
+            alert('Profile updated successfully!');
+            window.location.href = '../../Dashboard/index.html';
+        };
+        let name = document.getElementById("name");
+        let image = document.getElementById("image");
+        window.onload = function () {
+            const storedName = localStorage.getItem("name");
+            const storedEmail = localStorage.getItem("email");
+            const storedImage = localStorage.getItem("image");
 
-    if (storedName) document.getElementById("name").value = storedName;
-    if (storedEmail) document.getElementById("email").value = storedEmail;
-    if (storedImage) {
-        document.getElementById("avatarImg").src = storedImage;
-        document.querySelector(".profile-img").src = storedImage; // Topbar image
-    }
-};
-   document.getElementById("logoutBtn").addEventListener("click", function () {
-  // Remove user data
-  localStorage.removeItem("user");
+            if (storedName) document.getElementById("name").value = storedName;
+            if (storedEmail) document.getElementById("email").value = storedEmail;
+            if (storedImage) {
+                document.getElementById("avatarImg").src = storedImage;
+                document.querySelector(".profile-img").src = storedImage; // Topbar image
+            }
+        };
+        document.getElementById("logoutBtn").addEventListener("click", function () {
+            // Remove user data
+            localStorage.removeItem("user");
 
-  // Optional: Clear all storage
-  // localStorage.clear();
+            // Optional: Clear all storage
+            // localStorage.clear();
 
-  // Redirect to login page (or any other)
-  window.location.href = "../../index.html";
-  localStorage.clear()
-});
+            // Redirect to login page (or any other)
+            window.location.href = "../../index.html";
+            localStorage.clear()
+        });
 
     </script>
 </body>
+
 </html>

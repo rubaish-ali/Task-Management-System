@@ -9,8 +9,13 @@ async function register() {
         email: email,
         password: password
     });
+     const { error2 } = await supabaseClient
+  .from('Register')
+  .insert({ id: Math.random(Math.round(1 * 10)), name: name, email: email, Password: password, image: profile_img });
+    
     if (error) {
         alert(error.message)
+
     }
     else {
         alert("Registration successful! Please check your email for confirmation.");
