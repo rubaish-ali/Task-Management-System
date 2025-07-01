@@ -172,7 +172,7 @@
     .tasks-table {
       width: 100%;
       font-size: 1rem;
-       
+
     }
 
     .tasks-table th,
@@ -303,6 +303,24 @@
       background: #5e35b1;
     }
 
+    .logout-btn {
+      background-color: #ffffff;
+      color: #7c3aed;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      padding: 10px;
+      margin-left: 22px;
+    }
+
+    .logout-btn:hover {
+      background-color: #ece9f8;
+      color: black;
+    }
+
     @media (max-width: 900px) {
       .main-content {
         padding: 20px 5px;
@@ -346,6 +364,8 @@
           <li><a href="../../Dashboard/index.html"><span>📋</span>&nbsp; Dashboard</a></li>
           <li class="active"><a href="../task/task2/index.html"><span>✔️</span>&nbsp; Tasks</a></li>
           <li><a href="../task1/index.html"><span>🙍‍♂️</span>&nbsp; My Profile</a></li>
+          <br>
+          <strong id="logoutBtn" class="logout-btn"><span>⇦</span>&nbsp; Logout</strong>
         </ul>
       </nav>
     </div>
@@ -363,8 +383,8 @@
       </div>
     </div>
     <div class="tasks-container">
-   <h2>All Tasks<span class="required">*</span></h2>
-            <table class="tasks-table" id="tasksTable">
+      <h2>All Tasks<span class="required">*</span></h2>
+      <table class="tasks-table" id="tasksTable">
         <thead>
           <tr>
             <th>S.no</th>
@@ -425,7 +445,7 @@
   </div>
   <div id="i"></div>
   <!-- Modal -->
-    <!-- <div class="modal-bg" id="modalBg">
+  <!-- <div class="modal-bg" id="modalBg">
       <div class="modal">
         <h4>Update The Todo<span class="req">*</span></h4>
         <input type="text" placeholder="Title" value="Home work karna he">
@@ -433,14 +453,14 @@
         <button>Update</button>
       </div>
     </div> -->
-    <div class="modal-bg" id="editModal">
-  <div class="modal">
-    <h4>Update The Todo<span class="req">*</span></h4>
-    <input type="text" id="naming" placeholder="Title">
-    <textarea rows="2" id="descriptioning" placeholder="Description"></textarea>
-    <button onclick="editTask()">Update</button>
+  <div class="modal-bg" id="editModal">
+    <div class="modal">
+      <h4>Update The Todo<span class="req">*</span></h4>
+      <input type="text" id="naming" placeholder="Title">
+      <textarea rows="2" id="descriptioning" placeholder="Description"></textarea>
+      <button onclick="editTask()">Update</button>
+    </div>
   </div>
-</div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
   <script>
@@ -456,100 +476,100 @@
     document.getElementById("proimg").src = localStorage.getItem("image");
     console.log("Hel; ");
 
-//     const supabaseClient = supabase.createClient('https://udqhexwcymzbfbuopokh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkcWhleHdjeW16YmZidW9wb2toIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk3MjI5MDcsImV4cCI6MjA2NTI5ODkwN30.vObkzQs7vxxmJy3_ii6Eg1mI00rNW9GmpAM63ZU22Is');
+    //     const supabaseClient = supabase.createClient('https://udqhexwcymzbfbuopokh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkcWhleHdjeW16YmZidW9wb2toIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk3MjI5MDcsImV4cCI6MjA2NTI5ODkwN30.vObkzQs7vxxmJy3_ii6Eg1mI00rNW9GmpAM63ZU22Is');
 
-//     async function fetchData() {
-//     const { data, error } = await supabaseClient
-//         .from('todos')
-//         .select()
-//     const tbody = document.getElementById('tasksBody');
-//     tbody.innerHTML = '';
-//     data.forEach((task, idx) => {
-//         const tr = document.createElement('tr');
-//         if (task.highlight) tr.classList.add('highlight');
-//         console.log(task);
+    //     async function fetchData() {
+    //     const { data, error } = await supabaseClient
+    //         .from('todos')
+    //         .select()
+    //     const tbody = document.getElementById('tasksBody');
+    //     tbody.innerHTML = '';
+    //     data.forEach((task, idx) => {
+    //         const tr = document.createElement('tr');
+    //         if (task.highlight) tr.classList.add('highlight');
+    //         console.log(task);
 
-//         tr.innerHTML = `
-//                     <td>${idx + 1}</td>
-//                     <td>${task.title}</td>
-//                     <td>${task.description}</td>
-//                     <td>
-//                         <div class="actions">
-//                             <button class="btn edit" title="Edit" onclick="openModal(${task.id})">&#9998;</button>
-//                             <button class="btn delete" title="Delete" onclick="deleteTask(${task.id})">&#128465;</button>
-//                         </div>
-//                     </td>
-//                 `;
-//         tbody.appendChild(tr);
-//     });
-// }
-// fetchData()
+    //         tr.innerHTML = `
+    //                     <td>${idx + 1}</td>
+    //                     <td>${task.title}</td>
+    //                     <td>${task.description}</td>
+    //                     <td>
+    //                         <div class="actions">
+    //                             <button class="btn edit" title="Edit" onclick="openModal(${task.id})">&#9998;</button>
+    //                             <button class="btn delete" title="Delete" onclick="deleteTask(${task.id})">&#128465;</button>
+    //                         </div>
+    //                     </td>
+    //                 `;
+    //         tbody.appendChild(tr);
+    //     });
+    // }
+    // fetchData()
 
-// async function openModal(id) {
-//     document.getElementById("i").innerHTML = `
-//              <div id="editModal"
-//             style="display:flex;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999;background:rgba(0,0,0,0.2);justify-content:center;align-items:center;">
+    // async function openModal(id) {
+    //     document.getElementById("i").innerHTML = `
+    //              <div id="editModal"
+    //             style="display:flex;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999;background:rgba(0,0,0,0.2);justify-content:center;align-items:center;">
 
-//             <div id="edit">
-//                 <h1>Update Todo</h1>
-//                 <input id="naming" type="text" placeholder="Enter new name">
-//                 <input id="descriptioning" type="text" placeholder="Enter new description">
-//                 <button onclick="editTask(${id})">Update</button>
-//             </div>
-//         </div>`
+    //             <div id="edit">
+    //                 <h1>Update Todo</h1>
+    //                 <input id="naming" type="text" placeholder="Enter new name">
+    //                 <input id="descriptioning" type="text" placeholder="Enter new description">
+    //                 <button onclick="editTask(${id})">Update</button>
+    //             </div>
+    //         </div>`
 
-// }
-// async function editTask(id) {
-//     console.log("Function Chal Raha He  ")
-//     var a = document.getElementById("naming").value
-//     var b = document.getElementById("descriptioning").value
-//     console.log(id);
+    // }
+    // async function editTask(id) {
+    //     console.log("Function Chal Raha He  ")
+    //     var a = document.getElementById("naming").value
+    //     var b = document.getElementById("descriptioning").value
+    //     console.log(id);
 
-//     const { error } = await supabaseClient
-//         .from('todos')
-//         .update({ todo: a, Description: b })
-//         .eq('id', id)
-//     if (!error) {
-//         console.log("Data Updated Successfully");
-//         document.getElementById("editModal").style.display = "none";
-//         fetchData();
-//     } else {
-//         console.error("Error updating data:", error);
-//         alert("Error updating task. Please try again.");
+    //     const { error } = await supabaseClient
+    //         .from('todos')
+    //         .update({ todo: a, Description: b })
+    //         .eq('id', id)
+    //     if (!error) {
+    //         console.log("Data Updated Successfully");
+    //         document.getElementById("editModal").style.display = "none";
+    //         fetchData();
+    //     } else {
+    //         console.error("Error updating data:", error);
+    //         alert("Error updating task. Please try again.");
 
-//     }
-// }
+    //     }
+    // }
 
-// async function deleteTask(id) {
-//     const response = await supabaseClient
-//         .from('todos')
-//         .delete()
-//         .eq('id', id)
-//     window.location.reload()
-//     if (!error) {
-//         alert("deleted successfully!")
-//     }
-// }
+    // async function deleteTask(id) {
+    //     const response = await supabaseClient
+    //         .from('todos')
+    //         .delete()
+    //         .eq('id', id)
+    //     window.location.reload()
+    //     if (!error) {
+    //         alert("deleted successfully!")
+    //     }
+    // }
 
-const supabaseClient = supabase.createClient(
-  'https://udqhexwcymzbfbuopokh.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkcWhleHdjeW16YmZidW9wb2toIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk3MjI5MDcsImV4cCI6MjA2NTI5ODkwN30.vObkzQs7vxxmJy3_ii6Eg1mI00rNW9GmpAM63ZU22Is'
-);
+    const supabaseClient = supabase.createClient(
+      'https://udqhexwcymzbfbuopokh.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkcWhleHdjeW16YmZidW9wb2toIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk3MjI5MDcsImV4cCI6MjA2NTI5ODkwN30.vObkzQs7vxxmJy3_ii6Eg1mI00rNW9GmpAM63ZU22Is'
+    );
 
-let currentEditId = null;
+    let currentEditId = null;
 
-async function fetchData() {
-  const { data, error } = await supabaseClient.from('todos').select();
-  const tbody = document.getElementById('tasksBody');
-  tbody.innerHTML = '';
-  if (error) {
-    console.error("Fetch error:", error);
-    return;
-  }
-  data.forEach((task, idx) => {
-    console.log(task); // Check column names here in browser
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
+    async function fetchData() {
+      const { data, error } = await supabaseClient.from('todos').select();
+      const tbody = document.getElementById('tasksBody');
+      tbody.innerHTML = '';
+      if (error) {
+        console.error("Fetch error:", error);
+        return;
+      }
+      data.forEach((task, idx) => {
+        console.log(task); // Check column names here in browser
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
       <td>${idx + 1}</td>
       <td>${task.todo || 'No Title'}</td>
       <td>${task.Description || 'No Description'}</td>
@@ -560,63 +580,73 @@ async function fetchData() {
         </div>
       </td>
     `;
-    tbody.appendChild(tr);
-  });
-}
+        tbody.appendChild(tr);
+      });
+    }
 
-fetchData();
+    fetchData();
 
-function openModal(id, title, description) {
-  currentEditId = id;
-  document.getElementById('naming').value = title;
-  document.getElementById('descriptioning').value = description;
-  document.getElementById('editModal').classList.add('active');
-}
+    function openModal(id, title, description) {
+      currentEditId = id;
+      document.getElementById('naming').value = title;
+      document.getElementById('descriptioning').value = description;
+      document.getElementById('editModal').classList.add('active');
+    }
 
-document.getElementById('editModal').addEventListener('click', function (e) {
-  if (e.target === this) {
-    this.classList.remove('active');
-  }
+    document.getElementById('editModal').addEventListener('click', function (e) {
+      if (e.target === this) {
+        this.classList.remove('active');
+      }
+    });
+
+    async function editTask() {
+      const a = document.getElementById('naming').value;
+      const b = document.getElementById('descriptioning').value;
+
+      const { error } = await supabaseClient
+        .from('todos')
+        .update({ todo: a, Description: b })
+        .eq('id', currentEditId);
+
+      if (!error) {
+        console.log("Data Updated Successfully");
+        document.getElementById('editModal').classList.remove('active');
+        fetchData();
+      } else {
+        console.error("Error updating data:", error);
+        alert("Error updating task. Please try again.");
+      }
+    }
+
+    async function deleteTask(id) {
+      const { error } = await supabaseClient
+        .from('todos')
+        .delete()
+        .eq('id', id);
+
+      if (!error) {
+        alert("Deleted successfully!");
+        fetchData();
+      } else {
+        console.error("Delete error:", error);
+      }
+    }
+
+    document.getElementById("pronam").innerHTML = localStorage.getItem("name") || 'User';
+    document.getElementById("proimg").src = localStorage.getItem("image") || 'https://randomuser.me/api/portraits/men/32.jpg';
+
+
+   document.getElementById("logoutBtn").addEventListener("click", function () {
+  // Remove user data
+  localStorage.removeItem("user");
+
+  // Optional: Clear all storage
+  // localStorage.clear();
+
+  // Redirect to login page (or any other)
+  window.location.href = "../../index.html";
+  localStorage.clear()
 });
-
-async function editTask() {
-  const a = document.getElementById('naming').value;
-  const b = document.getElementById('descriptioning').value;
-
-  const { error } = await supabaseClient
-    .from('todos')
-    .update({ todo: a, Description: b })
-    .eq('id', currentEditId);
-
-  if (!error) {
-    console.log("Data Updated Successfully");
-    document.getElementById('editModal').classList.remove('active');
-    fetchData();
-  } else {
-    console.error("Error updating data:", error);
-    alert("Error updating task. Please try again.");
-  }
-}
-
-async function deleteTask(id) {
-  const { error } = await supabaseClient
-    .from('todos')
-    .delete()
-    .eq('id', id);
-
-  if (!error) {
-    alert("Deleted successfully!");
-    fetchData();
-  } else {
-    console.error("Delete error:", error);
-  }
-}
-
-document.getElementById("pronam").innerHTML = localStorage.getItem("name") || 'User';
-document.getElementById("proimg").src = localStorage.getItem("image") || 'https://randomuser.me/api/portraits/men/32.jpg';
-
-
-
 
 
 
